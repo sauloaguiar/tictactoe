@@ -45,6 +45,10 @@ module Challenge
       interface.tie
     end
 
+    def game_is_over
+      interface.game_is_over
+    end
+
     def position_inavailable
       interface.position_inavailable
     end

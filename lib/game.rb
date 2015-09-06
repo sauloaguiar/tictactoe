@@ -36,28 +36,30 @@ module Challenge
         #get player choice
         player.move!(board)
 
-        #show where he's played
+        #show the last move
         print_board
 
         #check if the game ended
-        if board.game_is_over || board.tie
-          ui.tie
+        if board.winner
+          ui.win(player)
           ui.end_game
           break
         end
 
-        if board.winner
-          ui.winner(player)
+        if board.game_is_over
+          ui.game_is_over
+          ui.end_game
+          break
+        end
+
+        if board.tie
+          ui.tie
           ui.end_game
           break
         end
 
         player, opponent = opponent, player
       end
-    end
-
-    def change_players!
-      player, opponent = opponent, player
     end
 
     def print_board

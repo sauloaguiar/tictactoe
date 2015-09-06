@@ -16,6 +16,10 @@ module Challenge
       puts "Game over"
     end
 
+    def game_is_over
+      puts "No more spots left!"
+    end
+
     def get_player_marks
       regex = "/(X|O)/"
       puts "Enter human's player mark(X or O): "

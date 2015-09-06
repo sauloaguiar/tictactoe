@@ -32,13 +32,6 @@ module Challenge
     # if all cells where either char of one player or from another
     def tie
       cells.all? { |s| s == "X" || s == "O" }
-      # Human (X) turn!
-      # Where to move?
-      # 7
-      # |_O_|_1_|_O_|
-      # |_O_|_X_|_5_|
-      # |_X_|_X_|_X_|
-
     end
 
     # for every victory possibility, checks if it holds
@@ -54,7 +47,7 @@ module Challenge
     # if we got an victory_line in our board, let's get who has won
     def winner
       entry = victoryEntry
-      entry ? cells[combo[0]] : false
+      entry ? cells[entry[0]] : false
     end
 
     def validate(position)
