@@ -66,12 +66,20 @@ module Challenge
       end
     end
 
+    def pc_move
+      puts "PC choosing..."
+    end
+
     def win(player)
       puts "#{player} has won!"
     end
 
     def tie
       puts "It was a tie!"
+    end
+
+    def position_inavailable
+      puts "Position not available. Try again!"
     end
   end
 end

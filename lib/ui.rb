@@ -33,12 +33,20 @@ module Challenge
       return interface.player_move
     end
 
+    def pc_move
+      interface.pc_move
+    end
+
     def win(player)
       interface.win(player)
     end
 
     def tie
       interface.tie
+    end
+
+    def position_inavailable
+      interface.position_inavailable
     end
   end
 end

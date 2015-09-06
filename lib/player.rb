@@ -22,7 +22,7 @@ module Challenge
         if board.validate(position)
           valid = true
         else
-          puts "Position not available. Try again!"
+          ui.position_inavailable
         end
       end
 
@@ -42,7 +42,7 @@ module Challenge
     end
 
     def move!(board)
-      puts "PC choosing..."
+      ui.pc_move
       sleep(2)
       eval_board(board)
     end
