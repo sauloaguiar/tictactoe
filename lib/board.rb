@@ -55,7 +55,9 @@ module Challenge
     end
 
     def fill_position!(position, marker)
-      cells[position] = marker
+      if validate(position)
+        cells[position] = marker
+      end
     end
   end
 end
