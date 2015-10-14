@@ -1,7 +1,17 @@
 module Challenge
   class Console
     def print_board(board)
-      puts "|_#{board.cells[0]}_|_#{board.cells[1]}_|_#{board.cells[2]}_|\n|_#{board.cells[3]}_|_#{board.cells[4]}_|_#{board.cells[5]}_|\n|_#{board.cells[6]}_|_#{board.cells[7]}_|_#{board.cells[8]}_|\n\n"
+      line = "|_"
+      for i in 0..board.size*board.size-1 do
+        line += "#{board.cells[i]}_|_"
+        if ((i+1) % board.size == 0)
+          line += "\n|_"
+        end
+
+        #line += "#{board.cells[i+board.size-1]}_|\n"
+      end
+      puts line + "\n"
+      #puts "|_#{board.cells[0]}_|_#{board.cells[1]}_|_#{board.cells[2]}_|\n|_#{board.cells[3]}_|_#{board.cells[4]}_|_#{board.cells[5]}_|\n|_#{board.cells[6]}_|_#{board.cells[7]}_|_#{board.cells[8]}_|\n\n"
     end
 
     def welcome
