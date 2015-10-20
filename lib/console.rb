@@ -14,6 +14,19 @@ module Challenge
       #puts "|_#{board.cells[0]}_|_#{board.cells[1]}_|_#{board.cells[2]}_|\n|_#{board.cells[3]}_|_#{board.cells[4]}_|_#{board.cells[5]}_|\n|_#{board.cells[6]}_|_#{board.cells[7]}_|_#{board.cells[8]}_|\n\n"
     end
 
+    # def print_board(board)
+    #   output = ""
+    #   size = board.size*board.size - 1
+    #   0.upto(9) do |position|
+    #     output << " #{board.cells[position] || position} "
+    #     case position % 3
+    #       when 0,1 then output << "|"
+    #       when 2 then output << "\n----------\n" unless position == 8
+    #     end
+    #   end
+    #   puts output
+    # end
+
     def welcome
       puts "Welcome to my Tic Tac Toe game"
     end

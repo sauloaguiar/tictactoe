@@ -1,3 +1,5 @@
+require 'set'
+
 module Challenge
   class Board
     attr_accessor :cells, :size
@@ -27,16 +29,27 @@ module Challenge
       @cells.all? { |s| s == "X" || s == "O" }
     end
 
-    # for every victory possibility, checks if it holds
-    def victory_entry
-      #puts "arrays: "
-      #puts get_victory_entries.inspect
-      get_victory_entries.each do |array|
-        if (array.any? {|x| x == array[0]})
-          return array
+    # for every victory possibility, checks if it holds for the given marker
+    def victory_entry(marker)
+      x_cells = cells.each_index.select{|i| cells[i] ==  marker}
+
+      x_cells_set = x_cells.to_set
+      get_victory_entries.each do |entry|
+        puts entry
+        puts "\n"
+        entry_set = entry.to_set
+        if (entry_set.subset? x_cells_set)
+          return x_cells
         end
       end
+
       false
+    end
+
+    # gets the first line representing a victory for the specific marker
+    def victory_line
+      entry = victory_entry("X")
+      entry ? entry : victory_entry("O")
     end
 
     def get_victory_entries()
@@ -96,7 +109,7 @@ module Challenge
 
     # if we got an victory_line in our board, let's get who has won
     def winner
-      entry = victory_entry
+      entry = victory_line
       entry ? cells[entry[0]] : false
     end
 

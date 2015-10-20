@@ -5,6 +5,7 @@ module Challenge
       @marker = marker
       @ui = ui
     end
+
     def move!(board)
       raise "Not implemented"
     end
@@ -74,13 +75,13 @@ module Challenge
       end
       available_spaces.each do |as|
         board.cells[as.to_i] = marker
-        if board.game_is_over
+        if board.tie?
           best_move = as.to_i
           board.cells[as.to_i] = as
           return best_move
         else
           board.cells[as.to_i] = @opponent
-          if board.game_is_over
+          if board.tie?
             best_move = as.to_i
             board.cells[as.to_i] = as
             return best_move

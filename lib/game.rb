@@ -6,9 +6,9 @@ require_relative 'player'
 module Challenge
   class Game
     attr_reader :board, :ui, :player1, :player2
-    def initialize
-      @board = Board.new
-      @ui = UI.new
+    def initialize(board, ui)
+      @board = board
+      @ui = ui
     end
 
     def create_players
@@ -46,13 +46,13 @@ module Challenge
           break
         end
 
-        if board.game_is_over
-          ui.game_is_over
-          ui.end_game
-          break
-        end
+        # if board.game_is_over
+        #   ui.game_is_over
+        #   ui.end_game
+        #   break
+        # end
 
-        if board.tie
+        if board.tie?
           ui.tie
           ui.end_game
           break

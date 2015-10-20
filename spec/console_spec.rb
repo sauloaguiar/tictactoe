@@ -7,8 +7,8 @@ describe Challenge::Console do
       it "should print the board as expected" do
         board = Challenge::Board.new
         console = Challenge::Console.new
-
-        #console.print_board(board)
+        puts "\n"
+        console.print_board(board)
       end
     end
   end

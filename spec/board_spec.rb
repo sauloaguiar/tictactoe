@@ -157,6 +157,44 @@ describe Challenge::Board do
         board.fill_position!(6, "X")
         expect(board.winner).to eq "X"
       end
+      it "should not find a winner" do
+        board = Challenge::Board.new
+        board.fill_position!(1, "X")
+        expect(board.winner).to eq false
+      end
+      it "should not find a winner" do
+        board = Challenge::Board.new
+        board.fill_position!(2, "X")
+        board.fill_position!(6, "X")
+        expect(board.winner).to eq false
+      end
+      it "should not find a winner" do
+        board = Challenge::Board.new
+        board.fill_position!(0, "O")
+        board.fill_position!(3, "O")
+        board.fill_position!(6, "O")
+        expect(board.winner).to eq "O"
+      end
+      it "should not find a winner" do
+        board = Challenge::Board.new
+        board.fill_position!(0, "X")
+        board.fill_position!(2, "X")
+        board.fill_position!(5, "X")
+        board.fill_position!(6, "O")
+        board.fill_position!(8, "O")
+        expect(board.winner).to eq false
+      end
+      it "should not find a winner" do
+        board = Challenge::Board.new
+        board.fill_position!(0, "O")
+        board.fill_position!(1, "X")
+        board.fill_position!(3, "O")
+        board.fill_position!(4, "X")
+        board.fill_position!(5, "X")
+        board.fill_position!(8, "O")
+        expect(board.winner).to eq false
+      end
+
     end
     context "4 sized board" do
       it "should get the winner for diagonal"  do
@@ -167,7 +205,6 @@ describe Challenge::Board do
         board.fill_position!(15, "X")
         expect(board.winner).to eq "X"
       end
-
       it "should get the winner for a column" do
         board = Challenge::Board.new(4)
         board.fill_position!(0, "X")
@@ -175,6 +212,11 @@ describe Challenge::Board do
         board.fill_position!(8, "X")
         board.fill_position!(12, "X")
         expect(board.winner).to eq "X"
+      end
+      it "should not find a winner" do
+        board = Challenge::Board.new(4)
+        board.fill_position!(1, "X")
+        expect(board.winner).to eq false
       end
     end
   end
