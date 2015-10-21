@@ -66,10 +66,12 @@ describe Challenge::Board do
         board = Challenge::Board.new(3)
         expect(board.get_victory_rows()[0]).to eq [0, 1, 2]
         expect(board.get_victory_rows()[1]).to eq [3, 4, 5]
+        expect(board.get_victory_rows()).not_to include([0, 0, 0])
 
         board = Challenge::Board.new(4)
         expect(board.get_victory_rows()[0]).to eq [0, 1, 2, 3]
         expect(board.get_victory_rows()[1]).to eq [4, 5, 6, 7]
+        expect(board.get_victory_rows()).not_to include([0, 0, 0, 0])
       end
     end
 
@@ -78,10 +80,12 @@ describe Challenge::Board do
         board = Challenge::Board.new(3)
         expect(board.get_victory_cols()[0]).to eq [0, 3, 6]
         expect(board.get_victory_cols()[1]).to eq [1, 4, 7]
+        expect(board.get_victory_cols()).not_to include([0, 0, 0])
 
         board = Challenge::Board.new(4)
         expect(board.get_victory_cols()[0]).to eq [0, 4, 8, 12]
         expect(board.get_victory_cols()[1]).to eq [1, 5, 9, 13]
+        expect(board.get_victory_cols()).not_to include([0, 0, 0, 0])
       end
     end
 
@@ -90,14 +94,17 @@ describe Challenge::Board do
         board = Challenge::Board.new(3)
         expect(board.get_victory_diagonals()[0]).to eq [0, 4, 8]
         expect(board.get_victory_diagonals()[1]).to eq [2, 4, 6]
+        expect(board.get_victory_diagonals()).not_to include([0, 0, 0])
 
         board = Challenge::Board.new(4)
         expect(board.get_victory_diagonals()[0]).to eq [0, 5, 10, 15]
         expect(board.get_victory_diagonals()[1]).to eq [3, 6, 9, 12]
+        expect(board.get_victory_diagonals()).not_to include([0, 0, 0, 0])
 
         board = Challenge::Board.new(5)
         expect(board.get_victory_diagonals()[0]).to eq [0, 6, 12, 18, 24]
         expect(board.get_victory_diagonals()[1]).to eq [4, 8, 12, 16, 20]
+        expect(board.get_victory_diagonals()).not_to include([0, 0, 0, 0, 0])
       end
     end
 
@@ -107,15 +114,18 @@ describe Challenge::Board do
         expect(board.get_victory_entries()).to include([0, 1, 2])
         expect(board.get_victory_entries()).to include([0, 3, 6])
         expect(board.get_victory_entries()).to include([0, 4, 8])
+        expect(board.get_victory_entries()).not_to include([0, 0, 0])
 
         board = Challenge::Board.new(4)
         expect(board.get_victory_entries()).to include([0, 1, 2, 3])
         expect(board.get_victory_entries()).to include([0, 4, 8, 12])
         expect(board.get_victory_entries()).to include([3, 6, 9, 12])
+        expect(board.get_victory_entries()).not_to include([0, 0, 0, 0])
 
         board = Challenge::Board.new(5)
         expect(board.get_victory_entries()).to include([0, 1, 2, 3, 4])
         expect(board.get_victory_entries()).to include([4, 8, 12, 16, 20])
+        expect(board.get_victory_entries()).not_to include([0, 0, 0, 0, 0])
       end
     end
   end
@@ -194,6 +204,19 @@ describe Challenge::Board do
         board.fill_position!(8, "O")
         expect(board.winner).to eq false
       end
+      it "should not find a winner" do
+        board = Challenge::Board.new
+        board.fill_position!(0, "X")
+        board.fill_position!(1, "X")
+        board.fill_position!(2, "O")
+        board.fill_position!(3, "O")
+        board.fill_position!(4, "X")
+        board.fill_position!(5, "X")
+        board.fill_position!(6, "X")
+        board.fill_position!(7, "O")
+        board.fill_position!(8, "O")
+        expect(board.winner).to eq false
+      end
 
     end
     context "4 sized board" do
@@ -217,6 +240,23 @@ describe Challenge::Board do
         board = Challenge::Board.new(4)
         board.fill_position!(1, "X")
         expect(board.winner).to eq false
+      end
+    end
+  end
+
+  describe "#validate" do
+    context "in a 3 by 3 board" do
+      it "should get that the position is not available" do
+        board = Challenge::Board.new
+        board.fill_position!(1, "X")
+        expect(board.validate(1)).to eq false
+      end
+    end
+
+    context "in a 4 by 4 board" do
+      it "should get that the position is not available" do
+        board = Challenge::Board.new(4)
+        expect(board.is_available?(10)).to eq true
       end
     end
   end

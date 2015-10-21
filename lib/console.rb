@@ -1,53 +1,46 @@
 module Challenge
-  class Console
-    def print_board(board)
-      line = "|_"
-      for i in 0..board.size*board.size-1 do
-        line += "#{board.cells[i]}_|_"
-        if ((i+1) % board.size == 0)
-          line += "\n|_"
-        end
+  class ConsoleUI
 
-        #line += "#{board.cells[i+board.size-1]}_|\n"
-      end
-      puts line + "\n"
-      #puts "|_#{board.cells[0]}_|_#{board.cells[1]}_|_#{board.cells[2]}_|\n|_#{board.cells[3]}_|_#{board.cells[4]}_|_#{board.cells[5]}_|\n|_#{board.cells[6]}_|_#{board.cells[7]}_|_#{board.cells[8]}_|\n\n"
+    def initialize(output = $stdout, input = $stdin)
+      @output = output
+      @input = input
     end
 
-    # def print_board(board)
-    #   output = ""
-    #   size = board.size*board.size - 1
-    #   0.upto(9) do |position|
-    #     output << " #{board.cells[position] || position} "
-    #     case position % 3
-    #       when 0,1 then output << "|"
-    #       when 2 then output << "\n----------\n" unless position == 8
-    #     end
-    #   end
-    #   puts output
-    # end
+    def print_board(board)
+      output = ""
+      separator = "-----" * board.size
+      number_of_pieces = board.size*board.size - 1
+      0.upto(number_of_pieces) do |position|
+        output << " #{board.cells[position]} "
+        case position % board.size
+        when 0..board.size-2 then (output << "| ")
+        when board.size-1 then (output << "\n" + separator + "\n") unless position == number_of_pieces
+        end
+      end
+      @output.puts output
+    end
 
     def welcome
-      puts "Welcome to my Tic Tac Toe game"
+      @output.puts "Welcome to my Tic Tac Toe game"
     end
 
     def turn_message(player)
-      puts "#{player} turn!"
+      @output.puts "#{player} turn!"
     end
 
     def end_game
-      puts "Game over"
+      @output.puts "Game over"
     end
 
     def game_is_over
-      puts "No more spots left!"
+      @output.puts "No more spots left!"
     end
 
     def get_player_marks
       regex = "/(X|O)/"
-      puts "Enter human's player mark(X or O): "
+      @output.puts "Enter human's player mark(X or O): "
       while true do
-        first = gets.chomp
+        first = @input.gets.chomp
         case first
         when "X"
           second = "O"
@@ -56,57 +49,57 @@ module Challenge
           second = "X"
           break
         else
-          puts "#{first} is not a valid option!"
-          puts "Enter first player's mark(X or O): "
+          @output.puts "#{first} is not a valid option!"
+          @output.puts "Enter first player's mark(X or O): "
         end
       end
-      puts "PC will play with #{second}"
+      @output.puts "PC will play with #{second}"
       return first, second
     end
 
     def get_player_order(player1, player2)
-      puts "Who will play first? Put 1 for: #{player1} or 2 for: #{player2}"
+      @output.puts "Who will play first? Put 1 for: #{player1} or 2 for: #{player2}"
       while true do
-        input = gets.chomp.to_i
-        case input
+        ins = @input.gets.chomp.to_i
+        case ins
           when 1
             return player1, player2
           when 2
             return player2, player1
           else
-            puts "#{input} is not a valid input!"
-            puts "Who will play first? Put 1 for: #{player1} or 2 for: #{player2}"
+            @output.puts "#{ins} is not a valid input!"
+            @output.puts "Who will play first? Put 1 for: #{player1} or 2 for: #{player2}"
         end
       end
     end
 
-    def player_move
-      puts "Where to move?"
+    def player_move(board)
+      @output.puts "Where to move?"
       while true do
-        pos = gets.chomp.to_i
+        pos = @input.gets.chomp.to_i
         case pos
-        when 0 .. 8
+        when 0 .. board.size * board.size - 1
           return pos
         else
-          puts "#{pos} is not a valid spot!"
+          @output.puts "#{pos} is not a valid spot!"
         end
       end
     end
 
     def pc_move
-      puts "PC choosing..."
+      @output.puts "PC choosing..."
     end
 
     def win(player)
-      puts "#{player} has won!"
+      @output.puts "#{player} has won!"
     end
 
     def tie
-      puts "It was a tie!"
+      @output.puts "It was a tie!"
     end
 
     def position_inavailable
-      puts "Position not available. Try again!"
+      @output.puts "Position not available. Try again!"
     end
   end
 end

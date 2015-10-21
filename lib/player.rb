@@ -19,15 +19,14 @@ module Challenge
     def move!(board)
       valid = false
       while !valid do
-        position = ui.player_move
-        if board.validate(position)
+        position = ui.player_move(board)
+        if board.is_available?(position)
           valid = true
         else
           ui.position_inavailable
         end
       end
 
-      #ui.show_
       board.fill_position!(position, marker)
     end
 
