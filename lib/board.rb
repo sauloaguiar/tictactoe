@@ -9,6 +9,10 @@ module Challenge
       @cells = Array.new(@size * @size) { |i| i.to_s }
     end
 
+    def how_many_elements?
+      @size * @size - 1
+    end
+
     def game_over?
       tie? || winner?
     end
@@ -85,8 +89,6 @@ module Challenge
     end
 
     def is_available?(position)
-      p cells
-      p position
       return !(cells[position] == "X" || cells[position] == "O")
     end
 

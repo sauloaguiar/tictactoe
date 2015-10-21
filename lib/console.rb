@@ -78,7 +78,7 @@ module Challenge
       while true do
         pos = @input.gets.chomp.to_i
         case pos
-        when 0 .. board.size * board.size - 1
+        when 0 .. board.how_many_elements?
           return pos
         else
           @output.puts "#{pos} is not a valid spot!"
