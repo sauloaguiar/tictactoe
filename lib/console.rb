@@ -1,6 +1,8 @@
 module Challenge
   class ConsoleUI
 
+    attr_reader :output
+
     def initialize(output = $stdout, input = $stdin)
       @output = output
       @input = input
