@@ -31,11 +31,7 @@ module Challenge
     end
 
     def end_game
-      @output.puts "Game over"
-    end
-
-    def game_is_over
-      @output.puts "No more spots left!"
+      @output.puts "Game Over!"
     end
 
     def get_player_marks
@@ -75,12 +71,12 @@ module Challenge
       end
     end
 
-    def player_move(board)
+    def human_move(board)
       @output.puts "Where to move?"
       while true do
         pos = @input.gets.chomp.to_i
         case pos
-        when 0 .. board.how_many_elements?
+        when 0 .. board.highest_index
           return pos
         else
           @output.puts "#{pos} is not a valid spot!"

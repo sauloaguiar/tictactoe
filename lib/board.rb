@@ -4,17 +4,13 @@ module Challenge
   class Board
     attr_accessor :cells, :size
 
-    def initialize(size = 4)
+    def initialize(size = 3)
       @size = size
       @cells = Array.new(@size * @size) { |i| i.to_s }
     end
 
-    def how_many_elements?
+    def highest_index
       @size * @size - 1
-    end
-
-    def game_over?
-      tie? || winner?
     end
 
     # if all cells where either char of one player or from another

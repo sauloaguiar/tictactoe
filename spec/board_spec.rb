@@ -244,12 +244,33 @@ describe Challenge::Board do
     end
   end
 
-  describe "#validate" do
+  describe "#is_game_over?" do
+    context "in a 3 by 3 board" do
+      it "should"
+    end
+  end
+
+  describe "#highest_index" do
+    context "in a 3 by 3 board" do
+      it "should return 8" do
+        board = Challenge::Board.new
+        expect(board.highest_index).to eq 8
+      end
+    end
+    context "in a 4 by 4 board" do
+      it "should return 15" do
+        board = Challenge::Board.new(4)
+        expect(board.highest_index).to eq 15
+      end
+    end
+  end
+
+  describe "#is_available?" do
     context "in a 3 by 3 board" do
       it "should get that the position is not available" do
         board = Challenge::Board.new
         board.fill_position!(1, "X")
-        expect(board.validate(1)).to eq false
+        expect(board.is_available?(1)).to eq false
       end
     end
 
