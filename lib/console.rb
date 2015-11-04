@@ -3,7 +3,7 @@ module Challenge
 
     attr_reader :output
 
-    def initialize(output = $stdout, input = $stdin)
+    def initialize(input = $stdin, output = $stdout)
       @output = output
       @input = input
     end
@@ -71,17 +71,13 @@ module Challenge
       end
     end
 
-    def human_move(board)
+    def human_move
       @output.puts "Where to move?"
-      while true do
-        pos = @input.gets.chomp.to_i
-        case pos
-        when 0 .. board.highest_index
-          return pos
-        else
-          @output.puts "#{pos} is not a valid spot!"
-        end
+      while position = @input.gets.chomp do
+        break if /^\d+$/.match(position)
+        @output.puts "#{position} is not a valid spot!"
       end
+      position.to_i
     end
 
     def pc_move

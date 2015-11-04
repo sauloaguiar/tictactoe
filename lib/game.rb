@@ -21,12 +21,12 @@ module Challenge
 
       player, opponent = @player1, @player2
 
-      while true
+      while over?
         #print player turn
         ui.turn_message(player)
 
         #get player choice
-        player.move!(board)
+        next_move(player)
 
         #show the last move
         print_board
@@ -46,6 +46,19 @@ module Challenge
 
         player, opponent = opponent, player
       end
+    end
+
+    def next_move(player)
+      spot = player.move(board)
+      until board.is_available?(spot)
+        ui.position_inavailable
+        spot = player.move(board)
+      end
+      board.fill_position!(spot, player.marker)
+    end
+
+    def over?
+      !(board.winner || board.tie?)
     end
 
     def print_board

@@ -12,7 +12,7 @@ describe Challenge::ConsoleUI do
     context "StringIO as dependency" do
       it "should print the welcome message as expected" do
         console.welcome
-        expect(console.output.string).to eq("Welcome to my Tic Tac Toe game\n")
+        expect(output.string).to eq("Welcome to my Tic Tac Toe game\n")
       end
     end
   end
@@ -22,12 +22,12 @@ describe Challenge::ConsoleUI do
       it "should print X as marker" do
         human = Challenge::HumanPlayer.new("X", console)
         console.turn_message(human)
-        expect(console.output.string).to eq("Human (X) turn!\n")
+        expect(output.string).to eq("Human (X) turn!\n")
       end
       it "should print O as marker" do
         human = Challenge::HumanPlayer.new("O", console)
         console.turn_message(human)
-        expect(console.output.string).to eq("Human (O) turn!\n")
+        expect(output.string).to eq("Human (O) turn!\n")
       end
     end
 
@@ -35,12 +35,12 @@ describe Challenge::ConsoleUI do
       it "should print X as marker" do
         pc = Challenge::PCPlayer.new("X", console)
         console.turn_message(pc)
-        expect(console.output.string).to eq("PC (X) turn!\n")
+        expect(output.string).to eq("PC (X) turn!\n")
       end
       it "should print O as marker" do
         pc = Challenge::PCPlayer.new("O", console)
         console.turn_message(pc)
-        expect(console.output.string).to eq("PC (O) turn!\n")
+        expect(output.string).to eq("PC (O) turn!\n")
       end
     end
   end
@@ -49,7 +49,7 @@ describe Challenge::ConsoleUI do
     context "StringIO as dependency" do
         it "should print game ending message" do
           console.end_game
-          expect(console.output.string).to eq("Game Over!\n")
+          expect(output.string).to eq("Game Over!\n")
         end
     end
   end
@@ -59,12 +59,12 @@ describe Challenge::ConsoleUI do
       it "should print the X marker" do
         pc = Challenge::PCPlayer.new("X", console)
         console.win(pc)
-        expect(console.output.string).to eq("PC (X) has won!\n")
+        expect(output.string).to eq("PC (X) has won!\n")
       end
       it "should print the X marker" do
         pc = Challenge::PCPlayer.new("O", console)
         console.win(pc)
-        expect(console.output.string).to eq("PC (O) has won!\n")
+        expect(output.string).to eq("PC (O) has won!\n")
       end
     end
 
@@ -72,13 +72,35 @@ describe Challenge::ConsoleUI do
       it "should print the X marker" do
         human = Challenge::HumanPlayer.new("X", console)
         console.win(human)
-        expect(console.output.string).to eq("Human (X) has won!\n")
+        expect(output.string).to eq("Human (X) has won!\n")
       end
 
       it "should print the O marker" do
         human = Challenge::HumanPlayer.new("O", console)
         console.win(human)
-        expect(console.output.string).to eq("Human (O) has won!\n")
+        expect(output.string).to eq("Human (O) has won!\n")
+      end
+    end
+  end
+
+  describe "#human_move" do
+    context "for a 3 by 3 board" do
+      it "should receive a valid position and accept it" do
+        board = Challenge::Board.new
+        user_input = StringIO.new("3\n")
+        output = StringIO.new
+        console = Challenge::ConsoleUI.new(user_input, output)
+        expect(console.human_move).to eq(3)
+        expect(output.string).to eq("Where to move?\n")
+      end
+
+      it "should reject characters other than numbers" do
+        board = Challenge::Board.new
+        user_input = StringIO.new("12\n")
+        output = StringIO.new
+        console = Challenge::ConsoleUI.new(user_input, output)
+        expect(console.human_move).to eq(12)
+        expect(output.string).to eq("Where to move?\n")
       end
     end
   end

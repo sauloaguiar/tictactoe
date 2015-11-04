@@ -6,7 +6,7 @@ module Challenge
       @ui = ui
     end
 
-    def move!(board)
+    def move(board)
       raise "Not implemented"
     end
 
@@ -16,18 +16,8 @@ module Challenge
   end
 
   class HumanPlayer < Player
-    def move!(board)
-      valid = false
-      while !valid do
-        position = ui.human_move(board)
-        if board.is_available?(position)
-          valid = true
-        else
-          ui.position_inavailable
-        end
-      end
-
-      board.fill_position!(position, marker)
+    def move(board)
+      ui.human_move
     end
 
     def to_s
@@ -41,7 +31,7 @@ module Challenge
       @opponent = getOpponentMarker
     end
 
-    def move!(board)
+    def move(board)
       ui.pc_move
       sleep(2)
       eval_board(board)
@@ -52,16 +42,18 @@ module Challenge
       until spot
         if board.cells[4] == "4"
           spot = 4
-          board.cells[spot] = marker
+          #board.cells[spot] = marker
         else
           spot = get_best_move(board, marker)
-          if board.cells[spot] != "X" && board.cells[spot] != "O"
-            board.cells[spot] = marker
-          else
-            spot = nil
-          end
+          #if board.cells[spot] != "X" && board.cells[spot] != "O"
+            #board.cells[spot] = marker
+          #else
+          # spot = nil
+          #end
         end
       end
+      p spot
+      spot
     end
 
     def get_best_move(board, next_player, depth = 0, best_score = {})
