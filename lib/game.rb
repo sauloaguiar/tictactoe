@@ -4,9 +4,6 @@ require_relative 'player'
 
 module Challenge
 
-  module PlayerFactory
-
-  end
   class Game
     attr_reader :board, :ui, :player1, :player2
     def initialize(board, player_1, player_2, ui)

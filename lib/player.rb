@@ -42,14 +42,8 @@ module Challenge
       until spot
         if board.cells[4] == "4"
           spot = 4
-          #board.cells[spot] = marker
         else
           spot = get_best_move(board, marker)
-          #if board.cells[spot] != "X" && board.cells[spot] != "O"
-            #board.cells[spot] = marker
-          #else
-          # spot = nil
-          #end
         end
       end
       p spot

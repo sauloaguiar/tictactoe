@@ -96,10 +96,10 @@ describe Challenge::ConsoleUI do
 
       it "should reject characters other than numbers" do
         board = Challenge::Board.new
-        user_input = StringIO.new("12\n")
+        user_input = StringIO.new("abacd\n")
         output = StringIO.new
         console = Challenge::ConsoleUI.new(user_input, output)
-        expect(console.human_move).to eq(12)
+        console.human_move
         expect(output.string).to eq("Where to move?\n")
       end
     end
