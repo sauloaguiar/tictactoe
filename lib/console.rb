@@ -75,7 +75,8 @@ module Challenge
       @output.puts "Where to move?"
       while position = @input.gets.chomp do
         break if /^\d+$/.match(position)
-        @output.puts "#{position} is not a valid spot!"
+        #@output.puts "#{position} is not a valid spot!"
+        position_inavailable(position)
       end
       position.to_i
     end
@@ -92,8 +93,8 @@ module Challenge
       @output.puts "It was a tie!"
     end
 
-    def position_inavailable
-      @output.puts "Position not available. Try again!"
+    def position_inavailable(position)
+      @output.puts "Position #{position} not available. Try again!"
     end
   end
 end

@@ -84,8 +84,16 @@ module Challenge
       entry ? cells[entry[0]] : false
     end
 
+    def win?
+      winner ? true : false
+    end
+
     def is_available?(position)
       return !(cells[position] == "X" || cells[position] == "O")
+    end
+
+    def over?
+      win? || tie?
     end
 
     def fill_position!(position, marker)

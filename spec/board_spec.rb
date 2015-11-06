@@ -244,12 +244,6 @@ describe Challenge::Board do
     end
   end
 
-  describe "#is_game_over?" do
-    context "in a 3 by 3 board" do
-      it "should"
-    end
-  end
-
   describe "#highest_index" do
     context "in a 3 by 3 board" do
       it "should return 8" do
