@@ -55,7 +55,7 @@ module Challenge
     end
 
     def over?
-      !(board.winner || board.tie?)
+      !board.winner || board.tie?
     end
 
     def print_board
